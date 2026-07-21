@@ -103,3 +103,27 @@ oldpeak = st.number_input(
     value=1.0,
     step=0.1
 )
+
+  # Make prediction
+prediction = model.predict(df_input)[0]
+
+ # Predict probability
+probability = model.predict_proba(df_input)[0]
+
+probability_no = probability[0]
+probability_yes = probability[1]
+
+st.subheader("Prediction Result")
+
+if prediction == 1:
+    st.error("⚠️ High Risk of Heart Disease")
+else:
+    st.success("✅ Low Risk of Heart Disease")
+
+st.subheader("Prediction Probability")
+
+st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
+st.progress(float(probability_yes))
+
+st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
+st.progress(float(probability_no))
