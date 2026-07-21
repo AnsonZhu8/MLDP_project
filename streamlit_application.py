@@ -104,26 +104,41 @@ oldpeak = st.number_input(
     step=0.1
 )
 
-  # Make prediction
-prediction = model.predict(df_input)[0]
+st.divider()
 
- # Predict probability
-probability = model.predict_proba(df_input)[0]
+if st.button("🔍 Predict Heart Disease"):
 
-probability_no = probability[0]
-probability_yes = probability[1]
+    # Create DataFrame
+    df_input = pd.DataFrame({
+        "Age": [age],
+        "ChestPainType": [chest_pain],
+        "RestingBP": [resting_bp],
+        "Cholesterol": [cholesterol],
+        "RestingECG": [resting_ecg],
+        "MaxHR": [max_hr],
+        "Oldpeak": [oldpeak]
+    })
 
-st.subheader("Prediction Result")
+    # Make prediction
+    prediction = model.predict(df_input)[0]
 
-if prediction == 1:
-    st.error("⚠️ High Risk of Heart Disease")
-else:
-    st.success("✅ Low Risk of Heart Disease")
+    # Prediction probabilities
+    probability = model.predict_proba(df_input)[0]
 
-st.subheader("Prediction Probability")
+    probability_no = probability[0]
+    probability_yes = probability[1]
 
-st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
-st.progress(float(probability_yes))
+    st.subheader("Prediction Result")
 
-st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
-st.progress(float(probability_no))
+    if prediction == 1:
+        st.error("⚠️ High Risk of Heart Disease")
+    else:
+        st.success("✅ Low Risk of Heart Disease")
+
+    st.subheader("Prediction Probability")
+
+    st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
+    st.progress(float(probability_yes))
+
+    st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
+    st.progress(float(probability_no))
