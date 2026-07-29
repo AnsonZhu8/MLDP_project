@@ -25,83 +25,44 @@ st.divider()
 
 # Age
 age = st.slider(
-    "Age",
-    min_value=20,
-    max_value=80,
-    value=50
+    "👤 Age",
+    ...
 )
 
-# Chest Pain Type
+# Chest Pain
 chest_pain = st.selectbox(
-    "Chest Pain Type",
-    [
-        "Typical Angina",
-        "Atypical Angina",
-        "Non-Anginal Pain",
-        "Asymptomatic"
-    ]
+    "🫀 Chest Pain Type",
+    ...
 )
 
-# Convert to model values
-chest_pain_dict = {
-    "Typical Angina": 0,
-    "Atypical Angina": 1,
-    "Non-Anginal Pain": 2,
-    "Asymptomatic": 3
-}
-
-chest_pain = chest_pain_dict[chest_pain]
-
-# Resting Blood Pressure
+# Blood Pressure
 resting_bp = st.number_input(
-    "Resting Blood Pressure (mmHg)",
-    min_value=0,
-    max_value=250,
-    value=120
+    "🩺 Resting Blood Pressure (mmHg)",
+    ...
 )
 
 # Cholesterol
 cholesterol = st.number_input(
-    "Cholesterol (mg/dL)",
-    min_value=0,
-    max_value=700,
-    value=200
+    "🧪 Cholesterol (mg/dL)",
+    ...
 )
 
-# Resting ECG
+# ECG
 resting_ecg = st.selectbox(
-    "Resting ECG Result",
-    [
-        "Normal",
-        "ST-T Wave Abnormality",
-        "Left Ventricular Hypertrophy"
-    ]
+    "📈 Resting ECG Result",
+    ...
 )
 
-# Convert to model values
-resting_ecg_dict = {
-    "Normal": 0,
-    "ST-T Wave Abnormality": 1,
-    "Left Ventricular Hypertrophy": 2
-}
-
-resting_ecg = resting_ecg_dict[resting_ecg]
-
-# Maximum Heart Rate
+# Heart Rate
 max_hr = st.slider(
-    "Maximum Heart Rate Achieved",
-    min_value=60,
-    max_value=202,
-    value=140
+    "❤️ Maximum Heart Rate Achieved",
+    ...
 )
 
 # Oldpeak
 oldpeak = st.number_input(
-    "Oldpeak (ST Depression)",
-    min_value=-2.6,
-    max_value=6.2,
-    value=1.0,
-    step=0.1
+    "📉 Oldpeak (ST Depression)",
+    ...
 )
 
 st.divider()
