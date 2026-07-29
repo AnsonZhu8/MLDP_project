@@ -106,7 +106,12 @@ oldpeak = st.number_input(
 
 st.divider()
 
-if st.button("🔍 Predict Heart Disease"):
+predict = st.button(
+    "🫀 Predict Heart Disease",
+    use_container_width=True
+)
+
+if predict:
 
     # Create DataFrame
     df_input = pd.DataFrame({
