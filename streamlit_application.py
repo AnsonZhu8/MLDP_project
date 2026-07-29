@@ -38,7 +38,7 @@ chest_pain = st.selectbox(
         "Typical Angina",
         "Atypical Angina",
         "Non-Anginal Pain",
-        "Asymptomatic "
+        "Asymptomatic"
     ]
 )
 
