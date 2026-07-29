@@ -35,22 +35,12 @@ age = st.slider(
 chest_pain = st.selectbox(
     " 🫀 Chest Pain Type",
     [
-        "Typical Angina",
-        "Atypical Angina",
-        "Non-Anginal Pain",
-        "Asymptomatic"
+        "Typical Angina (chest pain related to the heart)",
+        "Atypical Angina (chest pain not related to the heart)",
+        "Non-Anginal Pain (sharp and non-continuous)",
+        "Asymptomatic (no symptoms)"
     ]
 )
-
-# Show a description based on the selected option
-chest_pain_desc = {
-    "Typical Angina": "Chest pain caused by reduced blood flow to the heart.",
-    "Atypical Angina": "Chest pain that does not have the typical characteristics of heart-related pain.",
-    "Non-Anginal Pain": "Chest pain that is unlikely to be caused by heart disease.",
-    "Asymptomatic": "No chest pain or noticeable symptoms are present."
-}
-
-st.caption(f"ℹ️ {chest_pain_desc[chest_pain]}")
 
 # Convert to model values
 chest_pain_dict = {
@@ -99,7 +89,7 @@ resting_ecg = resting_ecg_dict[resting_ecg]
 
 # Maximum Heart Rate
 max_hr = st.slider(
-    "❤️ Maximum Heart Rate Achieved",
+    "❤️ Maximum Heart Rate Achieved During Exercise",
     min_value=60,
     max_value=202,
     value=140
