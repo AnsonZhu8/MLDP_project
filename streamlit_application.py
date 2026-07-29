@@ -33,7 +33,7 @@ age = st.slider(
 
 # Chest Pain Type
 chest_pain = st.selectbox(
-    " 🫀 Chest Pain Type",
+    "🫀 Chest Pain Type",
     [
         "Typical Angina",
         "Atypical Angina",
@@ -41,6 +41,16 @@ chest_pain = st.selectbox(
         "Asymptomatic"
     ]
 )
+
+# Description shown below
+chest_pain_desc = {
+    "Typical Angina": "Chest pain related to the heart.",
+    "Atypical Angina": "Chest pain not related to the heart.",
+    "Non-Anginal Pain": "Sharp and non-continuous. pain.",
+    "Asymptomatic": "No chest pain or noticeable symptoms."
+}
+
+st.caption(f"ℹ️ {chest_pain_desc[chest_pain]}")
 
 # Convert to model values
 chest_pain_dict = {
@@ -50,14 +60,13 @@ chest_pain_dict = {
     "Asymptomatic": 3
 }
 
-chest_pain = chest_pain_dict[chest_pain] 
-
+chest_pain = chest_pain_dict[chest_pain]
 
 
 # Resting Blood Pressure
 resting_bp = st.number_input(
     "🩺 Resting Blood Pressure (mmHg)",
-    min_value=0,
+    min_value=50,
     max_value=250,
     value=120
 )
@@ -65,7 +74,7 @@ resting_bp = st.number_input(
 # Cholesterol
 cholesterol = st.number_input(
     "🧪 Cholesterol (mg/dL)",
-    min_value=0,
+    min_value=50,
     max_value=700,
     value=200
 )
@@ -126,26 +135,41 @@ if predict:
         "Oldpeak": [oldpeak]
     })
 
+    if resting_bp < 50:
+        st.error("Resting blood pressure must be between 50 and 250 mmHg.")
+        st.stop()
+
+    if cholesterol < 80:
+        st.error("Cholesterol must be at least 80 mg/dL.")
+        st.stop()
+
     # Make prediction
-    prediction = model.predict(df_input)[0]
+    try:
+        prediction = model.predict(df_input)[0]
 
-    # Prediction probabilities
-    probability = model.predict_proba(df_input)[0]
+        # Prediction probabilities
+        probability = model.predict_proba(df_input)[0]
 
-    probability_no = probability[0]
-    probability_yes = probability[1]
+        probability_no = probability[0]
+        probability_yes = probability[1]
 
-    st.subheader("Prediction Result")
+        st.subheader("Prediction Result")
 
-    if prediction == 1:
-        st.error("⚠️ High Risk of Heart Disease")
-    else:
-        st.success("✅ Low Risk of Heart Disease")
+        if prediction == 1:
+            st.error("⚠️ High Risk of Heart Disease")
+        else:
+            st.success("✅ Low Risk of Heart Disease")
 
-    st.subheader("Prediction Probability")
+        st.subheader("Prediction Probability")
 
-    st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
-    st.progress(float(probability_yes))
+        st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
+        st.progress(float(probability_yes))
 
-    st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
-    st.progress(float(probability_no))
+        st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
+        st.progress(float(probability_no))
+
+    except Exception:
+        st.error("An unexpected error occurred while generating the prediction. Please check your inputs and try again")
+        st.stop()
+
+    
