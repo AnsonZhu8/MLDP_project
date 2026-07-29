@@ -42,6 +42,16 @@ chest_pain = st.selectbox(
     ]
 )
 
+# Show a description based on the selected option
+chest_pain_desc = {
+    "Typical Angina": "Chest pain caused by reduced blood flow to the heart.",
+    "Atypical Angina": "Chest pain that does not have the typical characteristics of heart-related pain.",
+    "Non-Anginal Pain": "Chest pain that is unlikely to be caused by heart disease.",
+    "Asymptomatic": "No chest pain or noticeable symptoms are present."
+}
+
+st.caption(f"ℹ️ {chest_pain_desc[chest_pain]}")
+
 # Convert to model values
 chest_pain_dict = {
     "Typical Angina": 0,
