@@ -35,10 +35,10 @@ age = st.slider(
 chest_pain = st.selectbox(
     " 🫀 Chest Pain Type",
     [
-        "Typical Angina (chest pain related to the heart)",
-        "Atypical Angina (chest pain not related to the heart)",
-        "Non-Anginal Pain (sharp and non-continuous)",
-        "Asymptomatic (no symptoms)"
+        "Typical Angina",
+        "Atypical Angina",
+        "Non-Anginal Pain",
+        "Asymptomatic "
     ]
 )
 
