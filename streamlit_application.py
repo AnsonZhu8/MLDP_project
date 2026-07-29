@@ -50,7 +50,9 @@ chest_pain_dict = {
     "Asymptomatic": 3
 }
 
-chest_pain = chest_pain_dict[chest_pain]
+chest_pain = chest_pain_dict[chest_pain] 
+
+
 
 # Resting Blood Pressure
 resting_bp = st.number_input(
