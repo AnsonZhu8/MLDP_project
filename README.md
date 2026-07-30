@@ -71,6 +71,13 @@ Target:
 - Matplotlib
 - Joblib
 
+- streamlit == 1.60.0
+-joblib==1.4.2
+-pandas == 3.0.5
+-scikit-learn == 1.9.0
+-numpy == 2.5.1
+-matplotlib
+
 ---
 
 ## Project Structure
