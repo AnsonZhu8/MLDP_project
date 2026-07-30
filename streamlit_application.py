@@ -84,16 +84,25 @@ resting_ecg = st.selectbox(
     "📈 Resting ECG Result",
     [
         "Normal",
-        "ST-T Wave Abnormality",
-        "Left Ventricular Hypertrophy"
+        "Minor Electrical Changes",
+        "Thickened Heart Muscle"
     ]
 )
+
+# Description
+resting_ecg_desc = {
+    "Normal": "ℹ️ The heart's electrical activity appears normal.",
+    "Minor Electrical Changes": "ℹ️ Small changes in the heart's electrical activity that may suggest reduced blood flow or other heart conditions.",
+    "Thickened Heart Muscle": "ℹ️ The heart's main pumping muscle is thicker than normal, often due to high blood pressure or other heart conditions."
+}
+
+st.caption(resting_ecg_desc[resting_ecg])
 
 # Convert to model values
 resting_ecg_dict = {
     "Normal": 0,
-    "ST-T Wave Abnormality": 1,
-    "Left Ventricular Hypertrophy": 2
+    "Minor Electrical Changes": 1,
+    "Thickened Heart Muscle": 2
 }
 
 resting_ecg = resting_ecg_dict[resting_ecg]
@@ -108,11 +117,16 @@ max_hr = st.slider(
 
 # Oldpeak
 oldpeak = st.number_input(
-    "📉 Oldpeak (ST Depression)",
+    "📉 Heart Stress During Exercise (Oldpeak)",
     min_value=-2.6,
     max_value=6.2,
     value=1.0,
     step=0.1
+)
+
+st.caption(
+    "ℹ️ Measures how much the heart shows signs of stress during exercise. "
+    "Higher values may indicate a greater risk of heart disease."
 )
 
 st.divider()
