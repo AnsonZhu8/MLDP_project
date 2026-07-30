@@ -10,7 +10,7 @@ model = joblib.load("mldp_project_model.pkl")
 st.set_page_config(
     page_title="Heart Disease Prediction",
     page_icon="❤️",
-    layout="centered"
+    layout="wide"
 )
 
 ## Title
@@ -128,17 +128,12 @@ with left:
         step=0.1
     )
 
-st.caption(
-    "ℹ️ Measures how much the heart shows signs of stress during exercise. "
-    "Higher values may indicate a greater risk of heart disease."
-)
+    st.caption(
+        "ℹ️ Measures how much the heart shows signs of stress during exercise. "
+        "Higher values may indicate a greater risk of heart disease."
+    )
 
-st.divider()
 
-predict = st.button(
-    "🫀 Predict Heart Disease",
-    use_container_width=True
-)
 
 if predict:
 
@@ -179,6 +174,13 @@ if predict:
             st.success("✅ Low Risk of Heart Disease")
 
         with right:
+
+            st.divider()
+
+            predict = st.button(
+            "🫀 Predict Heart Disease",
+            use_container_width=True
+            )
 
             st.subheader("🩺 Prediction Result")
 
