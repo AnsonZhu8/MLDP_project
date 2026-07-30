@@ -23,11 +23,9 @@ st.divider()
 
 ## User Inputs
 
-col1, col2 = st.columns(2)
+left, right = st.columns([3, 2])
 
-# ---------------- LEFT COLUMN ---------------- #
-
-with col1:
+with left:
 
     # Age
     age = st.slider(
@@ -48,15 +46,17 @@ with col1:
         ]
     )
 
+    # Description shown below
     chest_pain_desc = {
         "Typical Angina": "Chest pain related to the heart.",
         "Atypical Angina": "Chest pain not related to the heart.",
-        "Non-Anginal Pain": "Sharp and non-continuous pain.",
+        "Non-Anginal Pain": "Sharp and non-continuous. pain.",
         "Asymptomatic": "No chest pain or noticeable symptoms."
     }
 
     st.caption(f"ℹ️ {chest_pain_desc[chest_pain]}")
 
+    # Convert to model values
     chest_pain_dict = {
         "Typical Angina": 0,
         "Atypical Angina": 1,
@@ -66,49 +66,6 @@ with col1:
 
     chest_pain = chest_pain_dict[chest_pain]
 
-    # Resting ECG
-    resting_ecg = st.selectbox(
-        "📈 Resting ECG Result",
-        [
-            "Normal",
-            "Minor Electrical Changes",
-            "Thickened Heart Muscle"
-        ]
-    )
-
-    resting_ecg_desc = {
-        "Normal": "The heart's electrical activity appears normal.",
-        "Minor Electrical Changes": "Small changes in the heart's electrical activity.",
-        "Thickened Heart Muscle": "The heart's main pumping muscle is thicker than normal."
-    }
-
-    st.caption(f"ℹ️ {resting_ecg_desc[resting_ecg]}")
-
-    resting_ecg_dict = {
-        "Normal": 0,
-        "Minor Electrical Changes": 1,
-        "Thickened Heart Muscle": 2
-    }
-
-    resting_ecg = resting_ecg_dict[resting_ecg]
-
-    # Oldpeak
-    oldpeak = st.number_input(
-        "📉 Heart Stress During Exercise (Oldpeak)",
-        min_value=-2.6,
-        max_value=6.2,
-        value=1.0,
-        step=0.1
-    )
-
-    st.caption(
-        "ℹ️ Measures how much the heart shows signs of stress during exercise."
-    )
-
-
-# ---------------- RIGHT COLUMN ---------------- #
-
-with col2:
 
     # Resting Blood Pressure
     resting_bp = st.number_input(
@@ -126,13 +83,55 @@ with col2:
         value=200
     )
 
+    # Resting ECG
+    resting_ecg = st.selectbox(
+        "📈 Resting ECG Result",
+        [
+            "Normal",
+            "Minor Electrical Changes",
+            "Thickened Heart Muscle"
+        ]
+    )
+
+    # Description
+    resting_ecg_desc = {
+        "Normal": "ℹ️ The heart's electrical activity appears normal.",
+        "Minor Electrical Changes": "ℹ️ Small changes in the heart's electrical activity",
+        "Thickened Heart Muscle": "ℹ️ The heart's main pumping muscle is thicker than normal, often due to high blood pressure or other heart conditions."
+    }
+
+    st.caption(resting_ecg_desc[resting_ecg])
+
+    # Convert to model values
+    resting_ecg_dict = {
+        "Normal": 0,
+        "Minor Electrical Changes": 1,
+        "Thickened Heart Muscle": 2
+    }
+
+    resting_ecg = resting_ecg_dict[resting_ecg]
+
     # Maximum Heart Rate
     max_hr = st.slider(
-        "❤️ Maximum Heart Rate Achieved",
+        "❤️ Maximum Heart Rate Achieved During Exercise",
         min_value=60,
         max_value=202,
         value=140
     )
+
+    # Oldpeak
+    oldpeak = st.number_input(
+        "📉 Heart Stress During Exercise (Oldpeak)",
+        min_value=-2.6,
+        max_value=6.2,
+        value=1.0,
+        step=0.1
+    )
+
+st.caption(
+    "ℹ️ Measures how much the heart shows signs of stress during exercise. "
+    "Higher values may indicate a greater risk of heart disease."
+)
 
 st.divider()
 
@@ -179,16 +178,23 @@ if predict:
         else:
             st.success("✅ Low Risk of Heart Disease")
 
-        st.subheader("Prediction Probability")
+        with right:
 
-        st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
-        st.progress(float(probability_yes))
+            st.subheader("🩺 Prediction Result")
 
-        st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
-        st.progress(float(probability_no))
+            if prediction == 1:
+                st.error("⚠️ High Risk of Heart Disease")
+            else:
+                st.success("✅ Low Risk of Heart Disease")
 
-    except Exception:
-        st.error("An unexpected error occurred while generating the prediction. Please check your inputs and try again")
-        st.stop()
+            st.divider()
 
-    
+            st.subheader("📊 Prediction Probability")
+
+            st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
+            st.progress(float(probability_yes))
+
+            st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
+            st.progress(float(probability_no))
+    except Exception as e:
+        st.error(f"An error occurred while predicting: {e}")
