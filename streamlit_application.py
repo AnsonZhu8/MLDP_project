@@ -74,7 +74,7 @@ resting_bp = st.number_input(
 # Cholesterol
 cholesterol = st.number_input(
     "🧪 Cholesterol (mg/dL)",
-    min_value=50,
+    min_value=80,
     max_value=700,
     value=200
 )
