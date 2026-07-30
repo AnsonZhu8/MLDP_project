@@ -133,7 +133,12 @@ with left:
         "Higher values may indicate a greater risk of heart disease."
     )
 
+st.divider()
 
+predict = st.button(
+    "🫀 Predict Heart Disease",
+    use_container_width=True
+)
 
 if predict:
 
@@ -174,13 +179,6 @@ if predict:
             st.success("✅ Low Risk of Heart Disease")
 
         with right:
-
-            st.divider()
-
-            predict = st.button(
-            "🫀 Predict Heart Disease",
-            use_container_width=True
-            )
 
             st.subheader("🩺 Prediction Result")
 
