@@ -25,6 +25,8 @@ st.divider()
 
 left, right = st.columns([3, 2])
 
+
+
 with left:
 
     # Age
@@ -133,12 +135,12 @@ with left:
         "Higher values may indicate a greater risk of heart disease."
     )
 
-st.divider()
+    st.divider()
 
-predict = st.button(
-    "🫀 Predict Heart Disease",
-    use_container_width=True
-)
+    predict = st.button(
+        "🫀 Predict Heart Disease",
+        use_container_width=True
+    )
 
 if predict:
 
@@ -153,6 +155,7 @@ if predict:
         "Oldpeak": [oldpeak]
     })
 
+    # Input validation
     if resting_bp < 50:
         st.error("Resting blood pressure must be between 50 and 250 mmHg.")
         st.stop()
@@ -161,40 +164,40 @@ if predict:
         st.error("Cholesterol must be at least 80 mg/dL.")
         st.stop()
 
-    # Make prediction
     try:
+        # Make prediction
         prediction = model.predict(df_input)[0]
 
         # Prediction probabilities
         probability = model.predict_proba(df_input)[0]
-
         probability_no = probability[0]
         probability_yes = probability[1]
 
-        st.subheader("Prediction Result")
+    except Exception as e:
+        st.error(f"An error occurred while predicting: {e}")
+        st.stop()
+
+
+with right:
+
+    st.subheader("🩺 Prediction Result")
+
+    if not predict:
+        st.info("Fill in the patient's information and click **Predict Heart Disease**.")
+
+    else:
 
         if prediction == 1:
             st.error("⚠️ High Risk of Heart Disease")
         else:
             st.success("✅ Low Risk of Heart Disease")
 
-        with right:
+        st.divider()
 
-            st.subheader("🩺 Prediction Result")
+        st.subheader("📊 Prediction Probability")
 
-            if prediction == 1:
-                st.error("⚠️ High Risk of Heart Disease")
-            else:
-                st.success("✅ Low Risk of Heart Disease")
+        st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
+        st.progress(float(probability_yes))
 
-            st.divider()
-
-            st.subheader("📊 Prediction Probability")
-
-            st.write(f"**Probability of Heart Disease:** {probability_yes:.2%}")
-            st.progress(float(probability_yes))
-
-            st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
-            st.progress(float(probability_no))
-    except Exception as e:
-        st.error(f"An error occurred while predicting: {e}")
+        st.write(f"**Probability of No Heart Disease:** {probability_no:.2%}")
+        st.progress(float(probability_no))
