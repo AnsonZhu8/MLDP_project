@@ -92,7 +92,7 @@ resting_ecg = st.selectbox(
 # Description
 resting_ecg_desc = {
     "Normal": "ℹ️ The heart's electrical activity appears normal.",
-    "Minor Electrical Changes": "ℹ️ Small changes in the heart's electrical activity that may suggest reduced blood flow or other heart conditions.",
+    "Minor Electrical Changes": "ℹ️ Small changes in the heart's electrical activity",
     "Thickened Heart Muscle": "ℹ️ The heart's main pumping muscle is thicker than normal, often due to high blood pressure or other heart conditions."
 }
 
